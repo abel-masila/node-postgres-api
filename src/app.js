@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 import logger from "morgan";
 import bodyParser from "body-parser";
 
+import routes from "./routes";
+
 //dotenv init
 dotenv.config();
 
@@ -13,6 +15,8 @@ const app = express();
 app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+routes(app);
 
 app.get("*", (req, res) =>
   res.status(200).send({
