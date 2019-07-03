@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
-import cors from "cors";
+import logger from "morgan";
+import bodyParser from "body-parser";
 
 //dotenv init
 dotenv.config();
@@ -8,13 +9,16 @@ dotenv.config();
 //initialize express app
 const app = express();
 
-//app use cors middleware
-app.use(cors());
+//app use  middlewares
+app.use(logger("dev"));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
-// GET /
-app.get("/", (req, res, next) => {
-  res.send("Hello browser");
-});
+app.get("*", (req, res) =>
+  res.status(200).send({
+    message: "Welcome to the default API route"
+  })
+);
 app.listen(process.env.PORT, () => {
   console.log(`App running on port ${process.env.PORT}`);
 });
