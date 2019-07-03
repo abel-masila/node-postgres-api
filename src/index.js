@@ -1,6 +1,12 @@
-import dotenv from "dotenv";
+import express from "express";
 
-dotenv.config();
+//initialize express app
+const app = express();
 
-console.log("hey from node");
-console.log(process.env.MY_SECRET);
+// GET /
+app.get("/", (req, res, next) => {
+  res.send("Hello browser");
+});
+app.listen(3000, () => {
+  console.log("App running on port 30000");
+});
